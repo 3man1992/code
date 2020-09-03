@@ -7,4 +7,4 @@ df = is_licking("/Users/laurence/Desktop/Neuroscience/mproject/Data/402.csv")
     # is_lickingv = df.loc[(df['C_Tongue'] >= 0.99) & (df['FO_Tongue'] >= 0.99)]
     # print(is_lickingv)
 
-    #test 
+    #test chdhfd
