@@ -27,3 +27,5 @@ model_family = sm.families.Binomial(link = link_function)
 model = sm.GLM(choices, X, model_family)
 results = model.fit()
 print(model.summary())
+
+#hello
