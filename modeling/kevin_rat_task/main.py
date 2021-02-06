@@ -3,6 +3,7 @@ import statsmodels.api as sm
 from statsmodels.formula.api import glm
 import pandas as pd
 import numpy as np
+from matplotlib import pyplot as plt
 
 # pd.set_option("display.max_rows", None, "display.max_columns", None)
 
@@ -41,7 +42,34 @@ X = sm.add_constant(regressors, prepend=False)
 
 """GLM functions"""
 model = sm.GLM(choices, X, family = sm.families.Binomial()).fit()
-print(model.summary())
+weights = model.params
+weights = weights[:-1]
+weights.index = weights.index + 1
+reward_seeking_weights = weights[:10]
+choice_weights = weights[10:20].reset_index(drop=True)
+choice_weights.index += 1
+outcome_weights = weights[20:30].reset_index(drop=True)
+outcome_weights.index += 1
+# print(reward_seeking_weights)
+# print(choice_weights)
+# print(outcome_weights)
+# print(model.summary())
+
+"""Plotting graphs"""
+fig, (ax1, ax2, ax3) = plt.subplots(nrows=1, ncols=3)
+ax1.plot(reward_seeking_weights)
+ax1.set(title="Reward Seeking - Interaction term", ylabel="Regression Weights", xlabel="Trials in the pasts")
+ax1.set_xlim(10,1)
+ax1.set_ylim(-0.1,1.2)
+ax2.plot(choice_weights)
+ax2.set(title="Choice Perseveration", ylabel="Regression Weights", xlabel="Trials in the pasts")
+ax2.set_xlim(10,1)
+ax2.set_ylim(-0.1,1.2)
+ax3.plot(outcome_weights)
+ax3.set(title="Main Effect of Outcome", ylabel="Regression Weights", xlabel="Trials in the pasts")
+ax3.set_xlim(10,1)
+ax3.set_ylim(-0.1,1.2)
+plt.show()
 
 """Data exploration"""
 #Explore data types
